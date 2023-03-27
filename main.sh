@@ -10,9 +10,16 @@ fi
 zerotier-one & export APP_PID=$!
 sleep 5
 
-for ID in $(echo $NETWORK_ID | tr "," "\n")
+for OID in $(echo $MOOM_ID | tr "," "\n")
 do
-    zerotier-cli join $ID
+    zerotier-cli orbit $OID $OID
+done
+
+sleep 3
+
+for NID in $(echo $NETWORK_ID | tr "," "\n")
+do
+    zerotier-cli join $NID
 done
 
 wait $APP_PID
